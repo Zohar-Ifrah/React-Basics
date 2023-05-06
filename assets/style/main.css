@@ -1,0 +1,20 @@
+/* Setup */
+@import "setup/vars.css";
+@import "setup/typography.css";
+
+/* Base */
+@import "base/base.css";
+@import "base/helpers.css";
+@import "base/layout.css";
+@import "base/forms.css";
+
+/* Pages */
+@import "pages/home.css";
+
+/* Components */
+@import "cmps/app-header.css";
+@import "cmps/animal-list.css";
+@import "cmps/season-clock.css";
+@import "cmps/count-down.css";
+@import "cmps/watcher-app.css";
+@import "cmps/mouse-monitor.css";

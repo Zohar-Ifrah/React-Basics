@@ -1,0 +1,7 @@
+section.count-down-container *:not(:last-child)::after {
+  content: ":";
+}
+
+section.count-down-container .danger {
+  color: red;
+}

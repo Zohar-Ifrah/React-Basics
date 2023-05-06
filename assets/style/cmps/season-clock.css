@@ -1,0 +1,37 @@
+section.season-clock-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #bedce8;
+  width: 15rem;
+}
+
+section.season-clock-container.dark {
+  background-color: #01048e;
+  color: var(--gray1);
+}
+
+div.season-icon {
+  background-image: url("../../img/seasons.png");
+  background-size: cover;
+  height: 172px;
+  width: 120px;
+}
+
+div.season-icon.winter {
+  background-position: 0;
+}
+
+div.season-icon.spring {
+  background-position: -120px;
+}
+
+div.season-icon.summer {
+  background-position: -240px;
+}
+
+div.season-icon.autumn {
+  background-position: 120px;
+}
