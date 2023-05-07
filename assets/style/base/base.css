@@ -88,18 +88,28 @@ object {
   width: 13em;
 }
 
-.watchers-modal{
-  position: absolute;
+.watchers-modal {
+  position: fixed;
   background-color: #c74141;
-  max-width: 20em;
-  min-width: 14em;
-  top: 0;
-  right: 0;
+  max-width: 31em;
+  min-width: 19em;
+  top: 8em;
+  right: 8em;
+  min-height: 13em;
+  display: grid;
 }
 
-.mouse-monitor-app{
+.watchers-modal li {
+  text-align: left;
+}
+
+.mouse-monitor-app {
   position: fixed;
   bottom: 0;
   right: 0;
   background-color: #00000082;
+}
+
+footer {
+  border-top: 1px solid black;
 }

@@ -38,7 +38,8 @@ function demoDB() {
         fullname: 'suki sa',
         movies: ['Sambo', 'Socky']
     }
-    return [watcher1, watcher2, watcher3]
+    const watchers = [watcher1, watcher2, watcher3]
+    return watchers
 }
 
 function get(entityType, entityId) {
@@ -55,7 +56,7 @@ function post(entityType, newEntity) {
     return query(entityType).then(entities => {
         entities.push(newEntity)
         _save(entityType, entities)
-        return newEntity
+        return entities
     })
 }
 
