@@ -1,14 +1,15 @@
 import { storageService } from "../services/async-storage.service.js"
+import { WatcherPreview } from "./watcher-preview.jsx"
 
-const WATCHERS_STORAGE_KEY = "watchersDB"
 const { useState, useEffect } = React
 
 export function WatcherApp() {
     // DB
+    const WATCHERS_STORAGE_KEY = "watchersDB"
     const [watchers, setWatchers] = useState([])
     // for modal's display
     const [currWatcher, setCurrWatcher] = useState() // current watcher displayed on modal
-    const [isHide, setisHide] = useState(true)
+    const [isHide, setIsHide] = useState(true)
     const hideClass = isHide ? 'hide' : ''
 
     // first load of DB (saved DB or Demo)
@@ -21,7 +22,9 @@ export function WatcherApp() {
     // removes a watcher from DB and from DOM by id
     function onRemove(id) {
         storageService.remove(WATCHERS_STORAGE_KEY, id)
-        setWatchers(prevWatchers => prevWatchers.filter(watcher => watcher.id !== id))
+        .then(res => {
+            setWatchers(prevWatchers => prevWatchers.filter(watcher => watcher.id !== id))
+        })
     }
 
     // sets the "picked watcher" to current watcher. so it will render its info to the modal
@@ -29,13 +32,13 @@ export function WatcherApp() {
     function onSelect(id) {
         const watcher = watchers.find(watcher => watcher.id === id)
         setCurrWatcher(watcher) // current watcher = picked watcher
-        setisHide(!isHide) // toggle Modal
+        setIsHide(!isHide) // toggle Modal
     }
 
     // prompt name and movieS for new watcher
     // update the DB and the DOM
     function onAddWatcher() {
-        let movies = []
+        const movies = []
 
         const watcherName = prompt('Please insert name')
         // runs until add nothing or cancel
@@ -53,10 +56,6 @@ export function WatcherApp() {
             fullname: watcherName,
             movies
         }
-
-        // add the new watcher to the array
-        const updateWatchers = watchers.slice()
-        updateWatchers.push(newWatcher)
 
         // update DB and DOM
         storageService.post(WATCHERS_STORAGE_KEY, newWatcher)
@@ -76,7 +75,7 @@ export function WatcherApp() {
                         <li key={`${idx}-${movie}`}>{movie}</li>
                     )}
                 </ul>
-                <button onClick={() => setisHide(!isHide)}>close</button>
+                <button onClick={() => setIsHide(!isHide)}>close</button>
             </div>
 
             <header className='header-container'>
@@ -85,16 +84,11 @@ export function WatcherApp() {
             </header>
 
             <section className='watchers-container'>
-                {watchers.map(watcher =>
-                    <div key={watcher.id} className='watcher-card'>
-                        <img src="assets/img/avatar.png" alt="" />
-                        {watcher.fullname}
-                        <footer></footer>
-                        <p>
-                            <button onClick={() => onRemove(watcher.id)}>x</button>
-                            <button onClick={() => onSelect(watcher.id)}>select</button>
-                        </p>
-                    </div>
+                {watchers.map(watcher => <WatcherPreview
+                    key={watcher.id}
+                    watcher={watcher}
+                    onRemove={onRemove}
+                    onSelect={onSelect} />
                 )}
             </section>
         </main>
